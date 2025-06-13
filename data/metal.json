@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Zinc",
+        "quantity": 3100,
+        "price": 10,
+        "id": "1748365476769"
+    },
+    {
+        "name": "Aluminum",
+        "quantity": 5000,
+        "price": 2,
+        "id": "1748365476768"
+    }
+]

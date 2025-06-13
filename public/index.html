@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metal & Employee Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Metal & Employee Dashboard</h1>
+
+    <div class="dashboard-container">
+        <!-- Left Container - Form + Table -->
+        <div class="forms-column">
+            <!-- Metal form + Table -->
+            <section>
+                <h2>Metal Inventory</h2>
+                <form id="metalForm">
+                    <input type="text" id="metalName" placeholder="Metal Name" required />
+                    <input type="number" id="metalQty" placeholder="Quantity" required />
+                    <input type="number" id="metalPrice" placeholder="Price" required />
+                    <button type="submit">Add Metal</button>
+                </form>
+                <table id="metalTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Metal entries will be added here -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Employee form + Table -->
+            <section>
+                <h2>Employee Hours</h2>
+                <form id="employeeForm">
+                    <input type="text" id="empName" placeholder="Employee Name" required />
+                    <input type="number" id="empHours" placeholder="Hours Worked" required />
+                    <input type="number" id="empRate" placeholder="Hourly Rate" required />
+                    <button type="submit">Add Employee</button>
+                </form>
+                <table id="employeeTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Hours</th>
+                            <th>Rate</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeeTableBody">
+                        <!-- Employee entries will be added here -->
+                    </tbody>
+                </table>
+            </section>
+        </div>
+
+        <!-- Right Container - Dashboard KPI Reports -->
+        <div class="report-column">
+            <h2>Reports</h2>
+            <div class="report-box">
+                <p><span>Monthly Sales:</span><strong>$<span id="monthlySales">0</span></strong></p>
+                <p><span>Open Sales Orders:</span><strong>$<span id="openOrders">0</span></strong></p>
+                <p><span>Overdue Payments:</span><strong>$<span id="overduePayments">0</span></strong></p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+    <script src="employees.js"></script>
+
+    <script>
+        async function fetchReports() {
+            const res = await fetch('/api/dashboard');
+            const data = await res.json();
+
+            document.getElementById('monthlySales').innerText = data.monthlySales.toLocaleString();
+            document.getElementById('openOrders').innerText = data.openSalesOrders.toLocaleString();
+            document.getElementById('overduePayments').innerText = data.overduePayments.toLocaleString();
+        }
+
+        fetchReports();
+    </script>
+
+</body>
+
+</html>
